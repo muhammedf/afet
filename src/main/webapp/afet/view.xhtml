@@ -1,0 +1,182 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+<h:head></h:head>
+
+<h:body>
+
+    <div class="ui-fluid">
+
+        <h:form>
+            <p:panelGrid cellpadding="10" layout="tabular">
+
+                <p:row>
+                    <p:column colspan="2">
+                        <p:outputLabel for="serino" value="Seri No"/>
+                    </p:column>
+                    <p:column colspan="2">
+                        <p:inputText id="serino" value="#{editEntity.afet.seriNo}" disabled="true"/>
+                    </p:column>
+                    <p:column colspan="2">
+                        <p:outputLabel for="glideno" value="GLIDE No"/>
+                    </p:column>
+                    <p:column colspan="2">
+                        <p:inputText id="glideno" value="#{editEntity.afet.glideNo}" disabled="true"/>
+                    </p:column>
+                    <p:column colspan="4">
+                        <p:spacer/>
+                    </p:column>
+                </p:row>
+
+                <p:row>
+                    <p:column colspan="2">
+                        <p:outputLabel for="baslangic" value="Başlangıç Tarihi"/>
+                    </p:column>
+                    <p:column colspan="2">
+                        <p:calendar id="baslangic" value="#{editEntity.afet.baslangicTarihi}"/>
+                    </p:column>
+                    <p:column colspan="2">
+                        <p:outputLabel for="bitis" value="Bitiş Tarihi"/>
+                    </p:column>
+                    <p:column colspan="2">
+                        <p:calendar id="bitis" value="#{editEntity.afet.bitisTarihi}"/>
+                    </p:column>
+                    <p:column colspan="2">
+                        <p:outputLabel for="sure" value="Süre"/>
+                    </p:column>
+                    <p:column colspan="2">
+                        <p:inputText id="sure" value="#{editEntity.afet.sure}"/>
+                    </p:column>
+                </p:row>
+
+                <p:row>
+                    <p:column colspan="2">
+                        <p:outputLabel for="afettype" value="Afet Türü"/>
+                    </p:column>
+                    <p:column colspan="2">
+                        <p:selectOneMenu id="afettype" value="#{editEntity.afet.afetTuru}">
+                            <f:selectItem itemLabel="" itemValue="null"/>
+                            <f:selectItems value="#{selectOneMenuItems.afetTypes}"/>
+                        </p:selectOneMenu>
+                    </p:column>
+                    <p:column colspan="2">
+                        <p:outputLabel for="il" value="İl"/>
+                    </p:column>
+                    <p:column colspan="2">
+                        <p:selectOneMenu id="il" value="#{editEntity.afet.il}">
+                            <f:selectItem itemLabel="" itemValue="null"/>
+                            <f:selectItems value="#{selectOneMenuItems.iller()}"/>
+                            <p:ajax event="change" update="ilce, koy, mahalle" listener="#{editEntity.onIlChange}"/>
+                        </p:selectOneMenu>
+                    </p:column>
+                    <p:column colspan="2">
+                        <p:outputLabel for="ilce" value="İlçe"/>
+                    </p:column>
+                    <p:column colspan="2">
+                        <p:selectOneMenu id="ilce" value="#{editEntity.afet.ilce}">
+                            <f:selectItem itemLabel="" itemValue="null"/>
+                            <f:selectItems value="#{selectOneMenuItems.ilceler(editEntity.afet.il)}"/>
+                            <p:ajax event="change" update="koy, mahalle" listener="#{editEntity.onIlceChange}"/>
+                        </p:selectOneMenu>
+                    </p:column>
+
+                </p:row>
+
+                <p:row>
+                    <p:column colspan="2">
+                        <p:outputLabel for="koy" value="Köy"/>
+                    </p:column>
+                    <p:column colspan="2">
+                        <p:selectOneMenu id="koy" value="#{editEntity.afet.koy}">
+                            <f:selectItem itemLabel="" itemValue="null"/>
+                            <f:selectItems value="#{selectOneMenuItems.koyler(editEntity.afet.ilce)}"/>
+                            <p:ajax event="change" update="mahalle" listener="#{editEntity.onKoyChange}"/>
+                        </p:selectOneMenu>
+                    </p:column>
+                    <p:column colspan="2">
+                        <p:outputLabel for="mahalle" value="Mahalle"/>
+                    </p:column>
+                    <p:column colspan="2">
+                        <p:selectOneMenu id="mahalle" value="#{editEntity.afet.mahalle}">
+                            <f:selectItem itemLabel="" itemValue="null"/>
+                            <f:selectItems value="#{selectOneMenuItems.mahalleler(editEntity.afet.koy)}"/>
+                        </p:selectOneMenu>
+                    </p:column>
+                    <p:column colspan="2">
+                        <p:outputLabel for="belde" value="Belde / Mevki"/>
+                    </p:column>
+                    <p:column colspan="2">
+                        <p:inputText id="belde" value="#{editEntity.afet.belde}"/>
+                    </p:column>
+
+                </p:row>
+
+                <p:row>
+                    <p:column colspan="2">
+                        <p:outputLabel for="neden" value="Neden"/>
+                    </p:column>
+                    <p:column colspan="2">
+                        <p:inputText id="neden" value="#{editEntity.afet.neden}"/>
+                    </p:column>
+                    <p:column colspan="2">
+                        <p:outputLabel for="enlem" value="Enlem"/>
+                    </p:column>
+                    <p:column colspan="2">
+                        <p:inputText id="enlem" value="#{editEntity.afet.enlem}"/>
+                    </p:column>
+                    <p:column colspan="2">
+                        <p:outputLabel for="boylam" value="Boylam"/>
+                    </p:column>
+                    <p:column colspan="2">
+                        <p:inputText id="boylam" value="#{editEntity.afet.boylam}"/>
+                    </p:column>
+
+                </p:row>
+
+                <p:row>
+                    <p:column colspan="2">
+                        <p:outputLabel for="nedenaciklama" value="Neden Açıklama"/>
+                    </p:column>
+                    <p:column colspan="10">
+                        <p:inputText id="nedenaciklama" value="#{editEntity.afet.nedenAciklama}"/>
+                    </p:column>
+                </p:row>
+
+                <p:row>
+                    <p:column colspan="2">
+                        <p:outputLabel for="etkialan" value="Etkilediği Alanlar"/>
+                    </p:column>
+                    <p:column colspan="10">
+                        <p:inputText id="etkialan" value="#{editEntity.afet.etkiledigiAlanlar}"/>
+                    </p:column>
+                </p:row>
+
+                <p:row>
+                    <p:column colspan="2">
+                        <p:outputLabel for="kaynak" value="Kaynak"/>
+                    </p:column>
+                    <p:column colspan="10">
+                        <p:inputText id="kaynak" value="#{editEntity.afet.kaynak}"/>
+                    </p:column>
+                </p:row>
+
+                <p:row>
+                    <p:column colspan="8">
+                        <p:spacer/>
+                    </p:column>
+                    <p:column colspan="4">
+                        <p:commandButton value="Kaydet" action="#{editEntity.saveEntity}"/>
+                    </p:column>
+                </p:row>
+
+            </p:panelGrid>
+        </h:form>
+    </div>
+</h:body>
+
+</html>
