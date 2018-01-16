@@ -6,4 +6,9 @@ import javax.ejb.Stateless;
 
 @Stateless
 public class AfetDAO extends GenericDAOImpl<Afet, Long> {
+
+    @Override
+    protected Class<Afet> claz() {
+        return Afet.class;
+    }
 }
