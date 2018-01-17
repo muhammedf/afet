@@ -1,9 +1,9 @@
 package muhammedf.afet.view;
 
+import muhammedf.afet.util.IOUtil;
 import org.primefaces.event.FileUploadEvent;
 import org.primefaces.model.UploadedFile;
 
-import java.io.*;
 import java.util.Optional;
 
 public class FileUpload {
@@ -32,17 +32,8 @@ public class FileUpload {
     }
 
     private void saveFile(byte[] bytes, String fileName){
-        File file = new File(FILE_SYSTEM_RELATIVE_URI + "/" + fileName);
-        try {
-            file.createNewFile();
-            FileOutputStream fileOutputStream = new FileOutputStream(file);
-            fileOutputStream.write(bytes);
-            fileOutputStream.close();
+        if(IOUtil.createFile(bytes, FILE_SYSTEM_RELATIVE_URI + "/" + fileName)){
             callbackListener.ifPresent(c->c.fileUploaded(fileName));
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
-        } catch (IOException e) {
-            e.printStackTrace();
         }
     }
 }
