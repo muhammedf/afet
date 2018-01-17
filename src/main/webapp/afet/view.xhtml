@@ -198,18 +198,11 @@
                     </p:column>
                 </p:row>
 
-                <p:row>
-                    <p:column colspan="8">
-                        <p:spacer/>
-                    </p:column>
-                    <p:column colspan="4">
-                        <p:commandButton value="Kaydet" action="#{editEntity.saveEntity}"/>
-                    </p:column>
-                </p:row>
-
             </p:panelGrid>
         </div>
 
+        <p:commandLink value="Listeye Dön" action="#{navigation.toList}"/>
+        <p:commandButton value="Kaydet" action="#{editEntity.saveEntity}" style="float: right"/>
 
     </h:form>
 

@@ -18,4 +18,8 @@ public class Navigation {
     public String editAfet(Long id){
         return redirect("/afet/view?id="+id);
     }
+
+    public String toList(){
+        return redirect("/index.xhtml?");
+    }
 }
