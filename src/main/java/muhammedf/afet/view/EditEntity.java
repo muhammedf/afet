@@ -15,21 +15,25 @@ import java.util.UUID;
 
 @Named
 @ViewScoped
-public class EditEntity implements Serializable {
+public class EditEntity implements Serializable, FileUploadCallbackListener {
 
     @Inject
     private AfetDAO afetDao;
 
+    private FileUpload fileUpload;
+
     private Afet afet;
 
     @PostConstruct
-    public void init(){
+    public void init() {
 
         initOldAfet();
-        if(afet == null){
+        if (afet == null) {
             initNewAfet();
         }
 
+        fileUpload = new FileUpload();
+        fileUpload.setCallbackListener(this);
     }
 
     public Afet getAfet() {
@@ -40,45 +44,68 @@ public class EditEntity implements Serializable {
         this.afet = afet;
     }
 
-    private void initNewAfet(){
+    private void initNewAfet() {
         String randomUUID = UUID.randomUUID().toString();
         afet = new Afet();
         afet.setSeriNo(randomUUID);
         afet.setGlideNo(randomUUID);
     }
 
-    private void initOldAfet(){
-        Long id = Long.parseLong(FacesUtil.getParameter("id"));
-        if(id == null) return;
+    private void initOldAfet() {
+        String idP = FacesUtil.getParameter("id");
+        Long id = null;
+        if (idP == null) return;
+        id = Long.parseLong(idP);
+        if (id == null) return;
         afet = afetDao.read(id);
     }
 
-    public void saveEntity(){
-        if(afet.getId() == null){
+    public void saveEntity() {
+        if (afet.getId() == null) {
             afetDao.create(afet);
-        } else{
+        } else {
             afetDao.update(afet);
         }
     }
 
-    private void resetValues(String...s){
-        Arrays.stream(s).forEach(v->{
-            switch (v){
-                case "ilce": afet.setIlce(null); break;
-                case "koy": afet.setKoy(null); break;
-                case "mahalle": afet.setMahalle(null); break;
+    private void resetValues(String... s) {
+        Arrays.stream(s).forEach(v -> {
+            switch (v) {
+                case "ilce":
+                    afet.setIlce(null);
+                    break;
+                case "koy":
+                    afet.setKoy(null);
+                    break;
+                case "mahalle":
+                    afet.setMahalle(null);
+                    break;
             }
         });
     }
 
-    public void onIlChange(AjaxBehaviorEvent event){
+    public void onIlChange(AjaxBehaviorEvent event) {
         resetValues("ilce", "koy", "mahalle");
     }
-    public void onIlceChange(AjaxBehaviorEvent event){
+
+    public void onIlceChange(AjaxBehaviorEvent event) {
         resetValues("koy", "mahalle");
     }
-    public void onKoyChange(AjaxBehaviorEvent event){
+
+    public void onKoyChange(AjaxBehaviorEvent event) {
         resetValues("mahalle");
     }
 
+    @Override
+    public void fileUploaded(String fileName) {
+        System.out.println("callback");
+    }
+
+    public FileUpload getFileUpload() {
+        return fileUpload;
+    }
+
+    public void setFileUpload(FileUpload fileUpload) {
+        this.fileUpload = fileUpload;
+    }
 }

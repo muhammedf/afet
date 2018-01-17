@@ -175,7 +175,13 @@
                 </p:row>
 
             </p:panelGrid>
+
         </h:form>
+
+        <ui:param name="fileUploadBean" value="#{editEntity.fileUpload}"/>
+        <ui:include src="fileupload.xhtml"/>
+
+
     </div>
 </h:body>
 
