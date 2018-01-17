@@ -9,6 +9,7 @@
 <f:view>
     <h:form>
         <p:dataTable value="#{listEntity.afets}" var="afet">
+            <f:facet name="header">Afet Kayıtları</f:facet>
             <p:column>
                 <p:commandLink value="#{afet}" action="#{navigation.editAfet(afet.id)}"/>
             </p:column>
