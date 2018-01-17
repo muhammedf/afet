@@ -3,6 +3,7 @@ package muhammedf.afet.view;
 import muhammedf.afet.dao.AfetDAO;
 import muhammedf.afet.model.Afet;
 import muhammedf.afet.util.FacesUtil;
+import muhammedf.afet.util.IOUtil;
 
 import javax.annotation.PostConstruct;
 import javax.faces.event.AjaxBehaviorEvent;
@@ -107,5 +108,14 @@ public class EditEntity implements Serializable, FileUploadCallbackListener {
 
     public void setFileUpload(FileUpload fileUpload) {
         this.fileUpload = fileUpload;
+    }
+
+    public String getFilePath(String fileName){
+        return IOUtil.URL_RELATIVE_URI+"/"+fileName;
+    }
+
+    public String getFileUrl(String fileName){
+        System.out.println();
+        return IOUtil.SERVER_URL + IOUtil.URL_RELATIVE_URI + "/" + fileName;
     }
 }

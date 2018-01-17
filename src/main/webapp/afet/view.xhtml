@@ -185,7 +185,8 @@
         <h:form id="files">
             <p:dataTable value="#{editEntity.afet.files}" var="file">
                 <p:column>
-                    #{file}
+                    <!--<p:commandLink value="#{editEntity.getFilePath(file)}" action="#{editEntity.getFileUrl(file)}"/>-->
+                    <a href="#{editEntity.getFileUrl(file)}">#{editEntity.getFilePath(file)}</a>
                 </p:column>
             </p:dataTable>
         </h:form>
