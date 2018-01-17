@@ -12,11 +12,11 @@ public class Navigation {
     }
 
     public String newAfet(){
-        return redirect("/afet/view?");
+        return redirect("/view?");
     }
 
     public String editAfet(Long id){
-        return redirect("/afet/view?id="+id);
+        return redirect("/view?id="+id);
     }
 
     public String toList(){
