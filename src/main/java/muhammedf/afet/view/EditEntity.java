@@ -75,6 +75,13 @@ public class EditEntity implements Serializable, FileUploadCallbackListener {
         }
     }
 
+    public String removeEntity(){
+        if(afet.getId() != null){
+            afetDao.delete(afet);
+        }
+        return navigation.toList();
+    }
+
     private void resetValues(String... s) {
         Arrays.stream(s).forEach(v -> {
             switch (v) {
