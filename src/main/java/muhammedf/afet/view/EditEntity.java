@@ -4,6 +4,7 @@ import muhammedf.afet.dao.AfetDAO;
 import muhammedf.afet.model.Afet;
 import muhammedf.afet.util.FacesUtil;
 import muhammedf.afet.util.IOUtil;
+import muhammedf.afet.util.Navigation;
 
 import javax.annotation.PostConstruct;
 import javax.faces.event.AjaxBehaviorEvent;
@@ -24,6 +25,9 @@ public class EditEntity implements Serializable, FileUploadCallbackListener {
     private FileUpload fileUpload;
 
     private Afet afet;
+
+    @Inject
+    private Navigation navigation;
 
     @PostConstruct
     public void init() {
@@ -61,11 +65,13 @@ public class EditEntity implements Serializable, FileUploadCallbackListener {
         afet = afetDao.read(id);
     }
 
-    public void saveEntity() {
+    public String saveEntity() {
         if (afet.getId() == null) {
             afetDao.create(afet);
+            return navigation.editAfet(afet.getId());
         } else {
             afetDao.update(afet);
+            return null;
         }
     }
 
