@@ -10,9 +10,9 @@
 
 <h:body>
 
-    <div class="ui-fluid">
+    <h:form>
 
-        <h:form>
+        <div class="ui-fluid">
             <p:panelGrid cellpadding="10" layout="tabular">
 
                 <p:row>
@@ -166,6 +166,39 @@
                 </p:row>
 
                 <p:row>
+                    <p:column colspan="12">
+                        <ui:param name="fileUploadBean" value="#{editEntity.fileUpload}"/>
+                        <ui:param name="updateAfter" value="files"/>
+                        <ui:include src="fileupload.xhtml"/>
+                    </p:column>
+                </p:row>
+
+                <p:row>
+                    <p:column colspan="12">
+                        <p:dataTable id="files" value="#{editEntity.afet.files}" var="file">
+                            <p:column colspan="10" headerText="Dosya Yolu">
+                                <a href="#{editEntity.getFileUrl(file)}">#{editEntity.getFilePath(file)}</a>
+                            </p:column>
+                            <p:column colspan="2" headerText="İşlemler">
+                                <p:commandLink value="Sil" action="#{editEntity.deleteFile(file)}"
+                                               update="@form:files"/>
+                            </p:column>
+                        </p:dataTable>
+                    </p:column>
+                </p:row>
+
+                <p:row>
+                    <p:column colspan="4">
+                        <p:outputLabel for="onaydurum" value="Onay Durumu"/>
+                    </p:column>
+                    <p:column colspan="8">
+                        <p:selectOneRadio id="onaydurum" value="#{editEntity.afet.onayDurumu}">
+                            <f:selectItems value="#{selectOneMenuItems.onayDurumlari()}"/>
+                        </p:selectOneRadio>
+                    </p:column>
+                </p:row>
+
+                <p:row>
                     <p:column colspan="8">
                         <p:spacer/>
                     </p:column>
@@ -175,25 +208,12 @@
                 </p:row>
 
             </p:panelGrid>
+        </div>
 
-        </h:form>
 
-        <ui:param name="fileUploadBean" value="#{editEntity.fileUpload}"/>
-        <ui:param name="updateAfter" value="files"/>
-        <ui:include src="fileupload.xhtml"/>
+    </h:form>
 
-        <h:form id="files">
-            <p:dataTable value="#{editEntity.afet.files}" var="file">
-                <p:column>
-                    <a href="#{editEntity.getFileUrl(file)}">#{editEntity.getFilePath(file)}</a>
-                </p:column>
-                <p:column>
-                    <p:commandLink value="Sil" action="#{editEntity.deleteFile(file)}" update="@form"/>
-                </p:column>
-            </p:dataTable>
-        </h:form>
 
-    </div>
 </h:body>
 
 </html>

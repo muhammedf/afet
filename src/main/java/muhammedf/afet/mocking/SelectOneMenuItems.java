@@ -1,5 +1,7 @@
 package muhammedf.afet.mocking;
 
+import muhammedf.afet.model.OnayDurumu;
+
 import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Named;
 import java.util.Arrays;
@@ -41,6 +43,10 @@ public class SelectOneMenuItems {
             return Collections.emptyList();
         }
         return IntStream.range(1,10).boxed().map(i->koy+"mahalle"+i).collect(Collectors.toList());
+    }
+
+    public OnayDurumu[] onayDurumlari(){
+        return OnayDurumu.values();
     }
 
 }

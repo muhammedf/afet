@@ -8,9 +8,7 @@
       xmlns:p="http://primefaces.org/ui">
 <f:view>
     <!--needs a ui:param named fileUploadBean in type of muhammedf.afet.view.FileUpload-->
-    <h:form>
         <p:fileUpload value="#{fileUploadBean.uploadedFile}" fileUploadListener="#{fileUploadBean.fileUploadListener}"
                       auto="true" update="#{updateAfter}"/>
-    </h:form>
 </f:view>
 </html>
