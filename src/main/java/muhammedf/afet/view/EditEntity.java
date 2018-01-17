@@ -98,7 +98,7 @@ public class EditEntity implements Serializable, FileUploadCallbackListener {
 
     @Override
     public void fileUploaded(String fileName) {
-        System.out.println("callback");
+        afet.newFile(fileName);
     }
 
     public FileUpload getFileUpload() {

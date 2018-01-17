@@ -179,8 +179,16 @@
         </h:form>
 
         <ui:param name="fileUploadBean" value="#{editEntity.fileUpload}"/>
+        <ui:param name="updateAfter" value="files"/>
         <ui:include src="fileupload.xhtml"/>
 
+        <h:form id="files">
+            <p:dataTable value="#{editEntity.afet.files}" var="file">
+                <p:column>
+                    #{file}
+                </p:column>
+            </p:dataTable>
+        </h:form>
 
     </div>
 </h:body>

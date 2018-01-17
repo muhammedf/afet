@@ -1,15 +1,9 @@
 package muhammedf.afet.model;
 
-import javax.persistence.Entity;
+import javax.persistence.*;
 import java.io.Serializable;
-import javax.persistence.Id;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
+import java.util.*;
 import javax.persistence.Column;
-import javax.persistence.Version;
-import java.util.Date;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
 
 @Entity
 public class Afet implements Serializable {
@@ -75,6 +69,29 @@ public class Afet implements Serializable {
 
 	@Column
 	private String kaynak;
+
+	@Column
+	private String files = "";
+
+	@Transient
+	private Set<String> filesSplitted = new HashSet<>();
+
+	@PostLoad
+	public void onLoad() {
+		filesSplitted = new HashSet<>(Arrays.asList(files.split(";")));
+	}
+
+	public void newFile(String fileName){
+		filesSplitted.add(fileName);
+		if(!files.isEmpty()){
+			files+=";";
+		}
+		files += fileName;
+	}
+
+	public List<String> getFiles(){
+		return new ArrayList<>(filesSplitted);
+	}
 
 	public Long getId() {
 		return this.id;
@@ -286,6 +303,8 @@ public class Afet implements Serializable {
 			result += ", etkiledigiAlanlar: " + etkiledigiAlanlar;
 		if (kaynak != null && !kaynak.trim().isEmpty())
 			result += ", kaynak: " + kaynak;
+		if (files != null && !files.trim().isEmpty())
+			result += ", files: " + files;
 		return result;
 	}
 
