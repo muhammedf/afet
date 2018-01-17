@@ -22,16 +22,14 @@ public class EditEntity implements Serializable {
 
     private Afet afet;
 
-    private String state;
-
     @PostConstruct
     public void init(){
-        state = FacesUtil.getParameter("state");
 
-        switch (state){
-            case "new": initNewAfet(); break;
-            case "old": initOldAfet(); break;
+        initOldAfet();
+        if(afet == null){
+            initNewAfet();
         }
+
     }
 
     public Afet getAfet() {
@@ -51,13 +49,15 @@ public class EditEntity implements Serializable {
 
     private void initOldAfet(){
         Long id = Long.parseLong(FacesUtil.getParameter("id"));
+        if(id == null) return;
         afet = afetDao.read(id);
     }
 
     public void saveEntity(){
-        switch (state){
-            case "new": afetDao.create(afet); state="old"; break;
-            case "old": afetDao.update(afet); break;
+        if(afet.getId() == null){
+            afetDao.create(afet);
+        } else{
+            afetDao.update(afet);
         }
     }
 
@@ -72,13 +72,13 @@ public class EditEntity implements Serializable {
     }
 
     public void onIlChange(AjaxBehaviorEvent event){
-        resetValues("koy", "mahalle");
+        resetValues("ilce", "koy", "mahalle");
     }
     public void onIlceChange(AjaxBehaviorEvent event){
-        resetValues("mahalle");
+        resetValues("koy", "mahalle");
     }
     public void onKoyChange(AjaxBehaviorEvent event){
-        resetValues();
+        resetValues("mahalle");
     }
 
 }
