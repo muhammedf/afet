@@ -25,21 +25,21 @@ public class SelectOneMenuItems {
     }
 
     public List<String> ilceler(String il){
-        if(il==null || il.isEmpty()){
+        if(isStringEmpty(il)){
             return Collections.emptyList();
         }
         return IntStream.range(1,10).boxed().map(i->il+"ilçe"+i).collect(Collectors.toList());
     }
 
     public List<String> koyler(String ilce){
-        if(ilce==null || ilce.isEmpty()){
+        if(isStringEmpty(ilce)){
             return Collections.emptyList();
         }
         return IntStream.range(1,10).boxed().map(i->ilce+"köy"+i).collect(Collectors.toList());
     }
 
     public List<String> mahalleler(String koy){
-        if(koy==null || koy.isEmpty()){
+        if(isStringEmpty(koy)){
             return Collections.emptyList();
         }
         return IntStream.range(1,10).boxed().map(i->koy+"mahalle"+i).collect(Collectors.toList());
@@ -47,6 +47,10 @@ public class SelectOneMenuItems {
 
     public OnayDurumu[] onayDurumlari(){
         return OnayDurumu.values();
+    }
+
+    private boolean isStringEmpty(String string){
+        return string == null || string.isEmpty() || string.equals("null");
     }
 
 }
