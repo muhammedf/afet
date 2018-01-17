@@ -22,7 +22,6 @@ public class ListEntity implements Serializable {
     @PostConstruct
     public void init(){
         afets = afetDao.findAll();
-        System.out.println(afets);
     }
 
     public List<Afet> getAfets() {
