@@ -8,304 +8,312 @@ import javax.persistence.Column;
 @Entity
 public class Afet implements Serializable {
 
-	private static final long serialVersionUID = 1L;
-	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
-	@Column(name = "id", updatable = false, nullable = false)
-	private Long id;
-	@Version
-	@Column(name = "version")
-	private int version;
+    private static final long serialVersionUID = 1L;
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    @Column(name = "id", updatable = false, nullable = false)
+    private Long id;
+    @Version
+    @Column(name = "version")
+    private int version;
 
-	@Column
-	private String seriNo;
+    @Column
+    private String seriNo;
 
-	@Column
-	private String glideNo;
+    @Column
+    private String glideNo;
 
-	@Column
-	@Temporal(TemporalType.DATE)
-	private Date baslangicTarihi;
+    @Column
+    @Temporal(TemporalType.DATE)
+    private Date baslangicTarihi;
 
-	@Column
-	@Temporal(TemporalType.DATE)
-	private Date bitisTarihi;
+    @Column
+    @Temporal(TemporalType.DATE)
+    private Date bitisTarihi;
 
-	@Column
-	private Integer sure;
+    @Column
+    private Integer sure;
 
-	@Column
-	private String afetTuru;
+    @Column
+    private String afetTuru;
 
-	@Column
-	private String il;
+    @Column
+    private String il;
 
-	@Column
-	private String ilce;
+    @Column
+    private String ilce;
 
-	@Column
-	private String koy;
+    @Column
+    private String koy;
 
-	@Column
-	private String mahalle;
+    @Column
+    private String mahalle;
 
-	@Column
-	private String belde;
+    @Column
+    private String belde;
 
-	@Column
-	private String neden;
+    @Column
+    private String neden;
 
-	@Column
-	private Double enlem;
+    @Column
+    private Double enlem;
 
-	@Column
-	private Double boylam;
+    @Column
+    private Double boylam;
 
-	@Column
-	private String nedenAciklama;
+    @Column
+    private String nedenAciklama;
 
-	@Column
-	private String etkiledigiAlanlar;
+    @Column
+    private String etkiledigiAlanlar;
 
-	@Column
-	private String kaynak;
+    @Column
+    private String kaynak;
 
-	@Column
-	private String files = "";
+    @Column
+    private String files = "";
 
-	@Transient
-	private Set<String> filesSplitted = new HashSet<>();
+    @Transient
+    private Set<String> filesSplitted = new HashSet<>();
 
-	@PostLoad
-	public void onLoad() {
-		filesSplitted = new HashSet<>(Arrays.asList(files.split(";")));
-	}
+    @PostLoad
+    public void onLoad() {
+        filesSplitted = new HashSet<>(Arrays.asList(files.split(";")));
+    }
 
-	public void newFile(String fileName){
-		filesSplitted.add(fileName);
-		if(!files.isEmpty()){
-			files+=";";
-		}
-		files += fileName;
-	}
+    public void newFile(String fileName) {
+        filesSplitted.add(fileName);
+        if (!files.isEmpty()) {
+            files += ";";
+        }
+        files += fileName;
+    }
 
-	public List<String> getFiles(){
-		return new ArrayList<>(filesSplitted);
-	}
+    public void removeFile(String fileName) {
+        if (!filesSplitted.isEmpty()) {
+            files = filesSplitted.stream().reduce((a, b) -> a + ";" + b).get();
+        } else {
+            files = "";
+        }
+    }
 
-	public Long getId() {
-		return this.id;
-	}
+    public List<String> getFiles() {
+        return new ArrayList<>(filesSplitted);
+    }
 
-	public void setId(final Long id) {
-		this.id = id;
-	}
+    public Long getId() {
+        return this.id;
+    }
 
-	public int getVersion() {
-		return this.version;
-	}
+    public void setId(final Long id) {
+        this.id = id;
+    }
 
-	public void setVersion(final int version) {
-		this.version = version;
-	}
+    public int getVersion() {
+        return this.version;
+    }
 
-	@Override
-	public boolean equals(Object obj) {
-		if (this == obj) {
-			return true;
-		}
-		if (!(obj instanceof Afet)) {
-			return false;
-		}
-		Afet other = (Afet) obj;
-		if (id != null) {
-			if (!id.equals(other.id)) {
-				return false;
-			}
-		}
-		return true;
-	}
+    public void setVersion(final int version) {
+        this.version = version;
+    }
 
-	@Override
-	public int hashCode() {
-		final int prime = 31;
-		int result = 1;
-		result = prime * result + ((id == null) ? 0 : id.hashCode());
-		return result;
-	}
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (!(obj instanceof Afet)) {
+            return false;
+        }
+        Afet other = (Afet) obj;
+        if (id != null) {
+            if (!id.equals(other.id)) {
+                return false;
+            }
+        }
+        return true;
+    }
 
-	public Date getBaslangicTarihi() {
-		return baslangicTarihi;
-	}
+    @Override
+    public int hashCode() {
+        final int prime = 31;
+        int result = 1;
+        result = prime * result + ((id == null) ? 0 : id.hashCode());
+        return result;
+    }
 
-	public void setBaslangicTarihi(Date baslangicTarihi) {
-		this.baslangicTarihi = baslangicTarihi;
-	}
+    public Date getBaslangicTarihi() {
+        return baslangicTarihi;
+    }
 
-	public Date getBitisTarihi() {
-		return bitisTarihi;
-	}
+    public void setBaslangicTarihi(Date baslangicTarihi) {
+        this.baslangicTarihi = baslangicTarihi;
+    }
 
-	public void setBitisTarihi(Date bitisTarihi) {
-		this.bitisTarihi = bitisTarihi;
-	}
+    public Date getBitisTarihi() {
+        return bitisTarihi;
+    }
 
-	public Integer getSure() {
-		return sure;
-	}
+    public void setBitisTarihi(Date bitisTarihi) {
+        this.bitisTarihi = bitisTarihi;
+    }
 
-	public void setSure(Integer sure) {
-		this.sure = sure;
-	}
+    public Integer getSure() {
+        return sure;
+    }
 
-	public String getAfetTuru() {
-		return afetTuru;
-	}
+    public void setSure(Integer sure) {
+        this.sure = sure;
+    }
 
-	public void setAfetTuru(String afetTuru) {
-		this.afetTuru = afetTuru;
-	}
+    public String getAfetTuru() {
+        return afetTuru;
+    }
 
-	public String getIl() {
-		return il;
-	}
+    public void setAfetTuru(String afetTuru) {
+        this.afetTuru = afetTuru;
+    }
 
-	public void setIl(String il) {
-		this.il = il;
-	}
+    public String getIl() {
+        return il;
+    }
 
-	public String getKoy() {
-		return koy;
-	}
+    public void setIl(String il) {
+        this.il = il;
+    }
 
-	public void setKoy(String koy) {
-		this.koy = koy;
-	}
+    public String getKoy() {
+        return koy;
+    }
 
-	public String getMahalle() {
-		return mahalle;
-	}
+    public void setKoy(String koy) {
+        this.koy = koy;
+    }
 
-	public void setMahalle(String mahalle) {
-		this.mahalle = mahalle;
-	}
+    public String getMahalle() {
+        return mahalle;
+    }
 
-	public String getBelde() {
-		return belde;
-	}
+    public void setMahalle(String mahalle) {
+        this.mahalle = mahalle;
+    }
 
-	public void setBelde(String belde) {
-		this.belde = belde;
-	}
+    public String getBelde() {
+        return belde;
+    }
 
-	public Double getEnlem() {
-		return enlem;
-	}
+    public void setBelde(String belde) {
+        this.belde = belde;
+    }
 
-	public void setEnlem(Double enlem) {
-		this.enlem = enlem;
-	}
+    public Double getEnlem() {
+        return enlem;
+    }
 
-	public Double getBoylam() {
-		return boylam;
-	}
+    public void setEnlem(Double enlem) {
+        this.enlem = enlem;
+    }
 
-	public void setBoylam(Double boylam) {
-		this.boylam = boylam;
-	}
+    public Double getBoylam() {
+        return boylam;
+    }
 
-	public String getNedenAciklama() {
-		return nedenAciklama;
-	}
+    public void setBoylam(Double boylam) {
+        this.boylam = boylam;
+    }
 
-	public void setNedenAciklama(String nedenAciklama) {
-		this.nedenAciklama = nedenAciklama;
-	}
+    public String getNedenAciklama() {
+        return nedenAciklama;
+    }
 
-	public String getEtkiledigiAlanlar() {
-		return etkiledigiAlanlar;
-	}
+    public void setNedenAciklama(String nedenAciklama) {
+        this.nedenAciklama = nedenAciklama;
+    }
 
-	public void setEtkiledigiAlanlar(String etkiledigiAlanlar) {
-		this.etkiledigiAlanlar = etkiledigiAlanlar;
-	}
+    public String getEtkiledigiAlanlar() {
+        return etkiledigiAlanlar;
+    }
 
-	public String getKaynak() {
-		return kaynak;
-	}
+    public void setEtkiledigiAlanlar(String etkiledigiAlanlar) {
+        this.etkiledigiAlanlar = etkiledigiAlanlar;
+    }
 
-	public void setKaynak(String kaynak) {
-		this.kaynak = kaynak;
-	}
+    public String getKaynak() {
+        return kaynak;
+    }
 
-	public String getSeriNo() {
-		return seriNo;
-	}
+    public void setKaynak(String kaynak) {
+        this.kaynak = kaynak;
+    }
 
-	public void setSeriNo(String seriNo) {
-		this.seriNo = seriNo;
-	}
+    public String getSeriNo() {
+        return seriNo;
+    }
 
-	public String getGlideNo() {
-		return glideNo;
-	}
+    public void setSeriNo(String seriNo) {
+        this.seriNo = seriNo;
+    }
 
-	public void setGlideNo(String glideNo) {
-		this.glideNo = glideNo;
-	}
+    public String getGlideNo() {
+        return glideNo;
+    }
 
-	public String getIlce() {
-		return ilce;
-	}
+    public void setGlideNo(String glideNo) {
+        this.glideNo = glideNo;
+    }
 
-	public void setIlce(String ilce) {
-		this.ilce = ilce;
-	}
+    public String getIlce() {
+        return ilce;
+    }
 
-	public String getNeden() {
-		return neden;
-	}
+    public void setIlce(String ilce) {
+        this.ilce = ilce;
+    }
 
-	public void setNeden(String neden) {
-		this.neden = neden;
-	}
+    public String getNeden() {
+        return neden;
+    }
 
-	@Override
-	public String toString() {
-		String result = getClass().getSimpleName() + " ";
-		if (seriNo != null && !seriNo.trim().isEmpty())
-			result += "seriNo: " + seriNo;
-		if (glideNo != null && !glideNo.trim().isEmpty())
-			result += ", glideNo: " + glideNo;
-		if (sure != null)
-			result += ", sure: " + sure;
-		if (afetTuru != null && !afetTuru.trim().isEmpty())
-			result += ", afetTuru: " + afetTuru;
-		if (il != null && !il.trim().isEmpty())
-			result += ", il: " + il;
-		if (ilce != null && !ilce.trim().isEmpty())
-			result += ", ilce: " + ilce;
-		if (koy != null && !koy.trim().isEmpty())
-			result += ", koy: " + koy;
-		if (mahalle != null && !mahalle.trim().isEmpty())
-			result += ", mahalle: " + mahalle;
-		if (belde != null && !belde.trim().isEmpty())
-			result += ", belde: " + belde;
-		if (neden != null && !neden.trim().isEmpty())
-			result += ", neden: " + neden;
-		if (enlem != null)
-			result += ", enlem: " + enlem;
-		if (boylam != null)
-			result += ", boylam: " + boylam;
-		if (nedenAciklama != null && !nedenAciklama.trim().isEmpty())
-			result += ", nedenAciklama: " + nedenAciklama;
-		if (etkiledigiAlanlar != null && !etkiledigiAlanlar.trim().isEmpty())
-			result += ", etkiledigiAlanlar: " + etkiledigiAlanlar;
-		if (kaynak != null && !kaynak.trim().isEmpty())
-			result += ", kaynak: " + kaynak;
-		if (files != null && !files.trim().isEmpty())
-			result += ", files: " + files;
-		return result;
-	}
+    public void setNeden(String neden) {
+        this.neden = neden;
+    }
+
+    @Override
+    public String toString() {
+        String result = getClass().getSimpleName() + " ";
+        if (seriNo != null && !seriNo.trim().isEmpty())
+            result += "seriNo: " + seriNo;
+        if (glideNo != null && !glideNo.trim().isEmpty())
+            result += ", glideNo: " + glideNo;
+        if (sure != null)
+            result += ", sure: " + sure;
+        if (afetTuru != null && !afetTuru.trim().isEmpty())
+            result += ", afetTuru: " + afetTuru;
+        if (il != null && !il.trim().isEmpty())
+            result += ", il: " + il;
+        if (ilce != null && !ilce.trim().isEmpty())
+            result += ", ilce: " + ilce;
+        if (koy != null && !koy.trim().isEmpty())
+            result += ", koy: " + koy;
+        if (mahalle != null && !mahalle.trim().isEmpty())
+            result += ", mahalle: " + mahalle;
+        if (belde != null && !belde.trim().isEmpty())
+            result += ", belde: " + belde;
+        if (neden != null && !neden.trim().isEmpty())
+            result += ", neden: " + neden;
+        if (enlem != null)
+            result += ", enlem: " + enlem;
+        if (boylam != null)
+            result += ", boylam: " + boylam;
+        if (nedenAciklama != null && !nedenAciklama.trim().isEmpty())
+            result += ", nedenAciklama: " + nedenAciklama;
+        if (etkiledigiAlanlar != null && !etkiledigiAlanlar.trim().isEmpty())
+            result += ", etkiledigiAlanlar: " + etkiledigiAlanlar;
+        if (kaynak != null && !kaynak.trim().isEmpty())
+            result += ", kaynak: " + kaynak;
+        if (files != null && !files.trim().isEmpty())
+            result += ", files: " + files;
+        return result;
+    }
 
 }

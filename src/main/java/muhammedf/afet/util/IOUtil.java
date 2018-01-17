@@ -28,4 +28,9 @@ public class IOUtil {
         }
         return false;
     }
+
+    public static boolean deleteFile(String path) {
+        File file = new File(path);
+        return file.delete();
+    }
 }

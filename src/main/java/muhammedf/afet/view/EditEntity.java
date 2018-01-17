@@ -118,4 +118,9 @@ public class EditEntity implements Serializable, FileUploadCallbackListener {
         System.out.println();
         return IOUtil.SERVER_URL + IOUtil.URL_RELATIVE_URI + "/" + fileName;
     }
+
+    public void deleteFile(String fileName){
+        IOUtil.deleteFile(IOUtil.FILE_SYSTEM_RELATIVE_URI+"/"+fileName);
+        afet.removeFile(fileName);
+    }
 }
