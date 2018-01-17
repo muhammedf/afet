@@ -70,7 +70,7 @@ public class EditEntity implements Serializable, FileUploadCallbackListener {
             afetDao.create(afet);
             return navigation.editAfet(afet.getId());
         } else {
-            afetDao.update(afet);
+            afet = afetDao.update(afet);
             return null;
         }
     }
