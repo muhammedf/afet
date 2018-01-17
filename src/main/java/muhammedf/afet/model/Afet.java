@@ -78,7 +78,11 @@ public class Afet implements Serializable {
 
     @PostLoad
     public void onLoad() {
-        filesSplitted = new HashSet<>(Arrays.asList(files.split(";")));
+        if (!files.isEmpty()) {
+            filesSplitted = new HashSet<>(Arrays.asList(files.split(";", 0)));
+        } else {
+            filesSplitted = new HashSet<>();
+        }
     }
 
     public void newFile(String fileName) {
@@ -90,6 +94,7 @@ public class Afet implements Serializable {
     }
 
     public void removeFile(String fileName) {
+        filesSplitted.remove(fileName);
         if (!filesSplitted.isEmpty()) {
             files = filesSplitted.stream().reduce((a, b) -> a + ";" + b).get();
         } else {
