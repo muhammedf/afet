@@ -12,7 +12,7 @@ public class FileUpload {
 
     private Optional<FileUploadCallbackListener> callbackListener;
 
-    public void setCallbackListener(FileUploadCallbackListener callbackListener) {
+    public FileUpload(FileUploadCallbackListener callbackListener){
         this.callbackListener = Optional.ofNullable(callbackListener);
     }
 

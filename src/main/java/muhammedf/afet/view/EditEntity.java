@@ -37,8 +37,7 @@ public class EditEntity implements Serializable, FileUploadCallbackListener {
             initNewAfet();
         }
 
-        fileUpload = new FileUpload();
-        fileUpload.setCallbackListener(this);
+        fileUpload = new FileUpload(this);
     }
 
     public Afet getAfet() {
